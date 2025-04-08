@@ -1,166 +1,222 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mini App — Melf&</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%;
-        font-family: 'Georgia', serif;
-        background: url('bg_melf_small_monkey.jpg') no-repeat center center fixed;
-        background-size: cover;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini App — Melf&</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      font-family: 'Georgia', serif;
+      background: url('bg_melf_small_monkey.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
 
-      header {
-        margin-top: 20px;
-        font-size: 1.4rem;
-        background-color: rgba(0, 0, 0, 0.4);
-        padding: 12px 20px;
-        border-radius: 12px;
-        font-weight: bold;
-      }
+    header {
+      margin-top: 20px;
+      font-size: 1.4rem;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
 
-      .main {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
+    .main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-      /* КНОПКА В СТИЛЕ ГИБЛИ */
-      .button {
-        padding: 14px 30px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        border: 3px solid #5b4e3b;
-        border-radius: 16px;
-        background: linear-gradient(to bottom, #e5d3a8, #d8b56f);
-        color: #3a2d1a;
-        box-shadow: 0 4px 0 #5b4e3b, 0 6px 12px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        transition: all 0.2s ease;
-        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
-        margin-top: 20px;
-      }
+    .img-button {
+      width: 300px;
+      max-width: 90%;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 16px;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+      display: none;
+    }
 
-      .button:hover {
-        background: linear-gradient(to bottom, #f2e5c7, #e4c27a);
-      }
+    .img-button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
 
-      .button:active {
-        transform: translateY(2px);
-        box-shadow: 0 2px 0 #5b4e3b;
-      }
+    .img-button:active {
+      transform: scale(0.98);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
 
-      .token-list {
-        margin-top: 20px;
-        background-color: rgba(0, 0, 0, 0.5);
-        padding: 15px;
-        border-radius: 12px;
-        display: none;
-        flex-direction: column;
-        gap: 8px;
-      }
+    .lang-icon {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 48px;
+      height: auto;
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.2s ease;
+    }
 
-      .token-item {
-        font-size: 1rem;
-        padding: 6px 12px;
-        background: rgba(255, 255, 255, 0.15);
-        border-radius: 8px;
-        cursor: pointer;
-      }
+    .lang-icon:hover {
+      transform: scale(1.1);
+    }
 
-      .token-item:hover {
-        background: rgba(255, 255, 255, 0.25);
-      }
+    .token-list {
+      margin-top: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 15px;
+      border-radius: 12px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+    }
 
-      .token-card {
-        display: block;
-        margin-top: 20px;
-        width: 90%;
-        max-width: 420px;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-        opacity: 0;
-        transform: scale(0.9);
-        transition: all 0.6s ease;
-        pointer-events: none;
-      }
+    .token-item {
+      font-size: 1rem;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      cursor: pointer;
+    }
 
-      .token-card.show {
-        opacity: 1;
-        transform: scale(1);
-        pointer-events: auto;
-      }
+    .token-item:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
 
-      .token-card img {
-        width: 100%;
-        display: block;
-        border-radius: 16px;
-      }
-    </style>
-  </head>
-  <body>
-    <header id="greeting">Добро пожаловать!</header>
+    .token-card {
+      display: block;
+      margin-top: 20px;
+      width: 90%;
+      max-width: 420px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.6s ease;
+      pointer-events: none;
+    }
 
-    <div class="main">
-      <button class="button" onclick="toggleTokens()">Список токенов</button>
+    .token-card.show {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
 
-      <div class="token-list" id="tokenList">
-        <div class="token-item" onclick="showTokenCard('buzz')">Hive AI (BUZZ)</div>
-        <div class="token-item" onclick="showTokenCard('soon')">Скоро...</div>
-      </div>
+    .token-card img {
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+    }
+  </style>
+</head>
+<body>
+  <header id="greeting">Добро пожаловать!</header>
 
-      <div class="token-card" id="tokenCard">
-        <img id="tokenImage" src="" alt="Token Info" />
-      </div>
+  <!-- Переключатель языка -->
+  <img src="lang_ru.png" id="langSwitcher" alt="language" class="lang-icon" onclick="switchLang()" />
+
+  <div class="main">
+    <!-- Кнопки Token List (в двух языках) -->
+    <img
+      src="btn_token_list_ru_final.png"
+      alt="Список токенов"
+      class="img-button"
+      id="tokenListButtonRu"
+      onclick="toggleTokens()"
+    />
+    <img
+      src="btn_token_list_en_final.png"
+      alt="Token List"
+      class="img-button"
+      id="tokenListButtonEn"
+      onclick="toggleTokens()"
+    />
+
+    <!-- Список токенов -->
+    <div class="token-list" id="tokenList">
+      <div class="token-item" onclick="showTokenCard('buzz')">Hive AI (BUZZ)</div>
+      <div class="token-item" onclick="showTokenCard('soon')">Soon...</div>
     </div>
 
-    <script>
-      const tg = window.Telegram.WebApp;
-      tg.expand();
+    <!-- Карточка токена -->
+    <div class="token-card" id="tokenCard">
+      <img id="tokenImage" src="" alt="Token Info" />
+    </div>
+  </div>
 
-      const user = tg.initDataUnsafe?.user;
-      if (user && user.first_name) {
-        document.getElementById("greeting").textContent =
-          "Добро пожаловать, " + user.first_name + "!";
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    const user = tg.initDataUnsafe?.user;
+    if (user && user.first_name) {
+      document.getElementById("greeting").textContent =
+        "Добро пожаловать, " + user.first_name + "!";
+    }
+
+    let currentLang = localStorage.getItem("lang") || user?.language_code || "en";
+
+    function applyLanguage() {
+      const ruBtn = document.getElementById("tokenListButtonRu");
+      const enBtn = document.getElementById("tokenListButtonEn");
+      const langIcon = document.getElementById("langSwitcher");
+
+      if (currentLang.startsWith("ru")) {
+        ruBtn.style.display = "block";
+        enBtn.style.display = "none";
+        langIcon.src = "lang_en.png";
+      } else {
+        ruBtn.style.display = "none";
+        enBtn.style.display = "block";
+        langIcon.src = "lang_ru.png";
       }
 
-      function toggleTokens() {
-        const list = document.getElementById("tokenList");
-        const card = document.getElementById("tokenCard");
+      localStorage.setItem("lang", currentLang);
+    }
 
-        // Переключаем отображение списка токенов
-        if (list.style.display === "flex") {
-          list.style.display = "none";
-          card.classList.remove("show");
-        } else {
-          list.style.display = "flex";
-        }
+    function switchLang() {
+      currentLang = currentLang.startsWith("ru") ? "en" : "ru";
+      applyLanguage();
+    }
+
+    function toggleTokens() {
+      const list = document.getElementById("tokenList");
+      const card = document.getElementById("tokenCard");
+      if (list.style.display === "flex") {
+        list.style.display = "none";
+        card.classList.remove("show");
+      } else {
+        list.style.display = "flex";
       }
+    }
 
-      function showTokenCard(token) {
-        const card = document.getElementById("tokenCard");
-        const image = document.getElementById("tokenImage");
+    function showTokenCard(token) {
+      const card = document.getElementById("tokenCard");
+      const image = document.getElementById("tokenImage");
 
-        if (token === "buzz") {
-          image.src = "buzz_ghibli_card.jpg"; // путь к картинке BUZZ
-          card.classList.add("show");
-        } else {
-          card.classList.remove("show");
-        }
+      if (token === "buzz") {
+        image.src = "buzz_ghibli_card.jpg";
+        card.classList.add("show");
+      } else {
+        card.classList.remove("show");
       }
-    </script>
-  </body>
+    }
+
+    applyLanguage();
+  </script>
+</body>
 </html>
