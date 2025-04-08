@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Telegram Mini App</title>
+    <title>Mini App Melf&</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-      body {
-        font-family: sans-serif;
-        padding: 20px;
-        background: #f1f1f1;
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Arial', sans-serif;
+        color: white;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-image: url('melf_bg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .content {
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 20px;
+        border-radius: 16px;
+        margin: 20px;
       }
     </style>
   </head>
   <body>
-    <h1>Добро пожаловать в Mini App!</h1>
-    <p id="username">Загрузка...</p>
-    <script>
-      const tg = window.Telegram.WebApp;
-      tg.expand();
-      const user = tg.initDataUnsafe?.user;
-      if (user) {
-        document.getElementById('username').textContent = `Привет, ${user.first_name}!`;
-      } else {
-        document.getElementById('username').textContent = "Пользователь не найден.";
-      }
-    </script>
+    <div class="content">
+      <h1>Привет, Melf&!</h1>
+      <p>Это твой Telegram Mini App на фоне крипто-Гибли 🌿</p>
+    </div>
   </body>
 </html>
