@@ -109,33 +109,36 @@
     </div>
 
     <script>
-      const tg = window.Telegram.WebApp;
-      tg.expand();
+  const tg = window.Telegram.WebApp;
+  tg.expand();
 
-      const user = tg.initDataUnsafe?.user;
-      if (user && user.first_name) {
-        document.getElementById("greeting").textContent =
-          "Добро пожаловать, " + user.first_name + "!";
-      }
+  const user = tg.initDataUnsafe?.user;
+  if (user && user.first_name) {
+    document.getElementById("greeting").textContent =
+      "Добро пожаловать, " + user.first_name + "!";
+  }
 
-      function toggleTokens() {
-        const list = document.getElementById("tokenList");
-        list.style.display = list.style.display === "flex" ? "none" : "flex";
-        // скрываем карточку при повторном открытии списка
-        document.getElementById("tokenCard").style.display = "none";
-      }
+  function toggleTokens() {
+    const list = document.getElementById("tokenList");
+    const card = document.getElementById("tokenCard");
+    const image = document.getElementById("tokenImage");
 
-      function showTokenCard(token) {
-        const card = document.getElementById("tokenCard");
-        const image = document.getElementById("tokenImage");
+    // скрыть карточку, если список снова закрывается
+    list.style.display = list.style.display === "flex" ? "none" : "flex";
+    card.classList.remove("show");
+  }
 
-        if (token === "buzz") {
-          image.src = "buzz_ghibli_card.jpg"; // Подставь правильное имя файла
-          card.style.display = "block";
-        } else {
-          card.style.display = "none";
-        }
-      }
-    </script>
+  function showTokenCard(token) {
+    const card = document.getElementById("tokenCard");
+    const image = document.getElementById("tokenImage");
+
+    if (token === "buzz") {
+      image.src = "buzz_ghibli_card.jpg"; // путь к твоей картинке
+      card.classList.add("show"); // запуск анимации
+    } else {
+      card.classList.remove("show");
+    }
+  }
+</script>
   </body>
 </html>
