@@ -65,24 +65,33 @@
       .token-item {
         font-size: 1rem;
         padding: 6px 12px;
-        background: rgba(255,255,255,0.15);
+        background: rgba(255, 255, 255, 0.15);
         border-radius: 8px;
         cursor: pointer;
       }
 
       .token-item:hover {
-        background: rgba(255,255,255,0.25);
+        background: rgba(255, 255, 255, 0.25);
       }
 
-      /* Карточка токена */
       .token-card {
-        display: none;
+        display: block;
         margin-top: 20px;
         width: 90%;
         max-width: 420px;
         border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transform: scale(0.9);
+        transition: all 0.6s ease;
+        pointer-events: none;
+      }
+
+      .token-card.show {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
       }
 
       .token-card img {
@@ -109,36 +118,39 @@
     </div>
 
     <script>
-  const tg = window.Telegram.WebApp;
-  tg.expand();
+      const tg = window.Telegram.WebApp;
+      tg.expand();
 
-  const user = tg.initDataUnsafe?.user;
-  if (user && user.first_name) {
-    document.getElementById("greeting").textContent =
-      "Добро пожаловать, " + user.first_name + "!";
-  }
+      const user = tg.initDataUnsafe?.user;
+      if (user && user.first_name) {
+        document.getElementById("greeting").textContent =
+          "Добро пожаловать, " + user.first_name + "!";
+      }
 
-  function toggleTokens() {
-    const list = document.getElementById("tokenList");
-    const card = document.getElementById("tokenCard");
-    const image = document.getElementById("tokenImage");
+      function toggleTokens() {
+        const list = document.getElementById("tokenList");
+        const card = document.getElementById("tokenCard");
 
-    // скрыть карточку, если список снова закрывается
-    list.style.display = list.style.display === "flex" ? "none" : "flex";
-    card.classList.remove("show");
-  }
+        // Переключаем отображение списка токенов
+        if (list.style.display === "flex") {
+          list.style.display = "none";
+          card.classList.remove("show");
+        } else {
+          list.style.display = "flex";
+        }
+      }
 
-  function showTokenCard(token) {
-    const card = document.getElementById("tokenCard");
-    const image = document.getElementById("tokenImage");
+      function showTokenCard(token) {
+        const card = document.getElementById("tokenCard");
+        const image = document.getElementById("tokenImage");
 
-    if (token === "buzz") {
-      image.src = "buzz_ghibli_card.jpg"; // путь к твоей картинке
-      card.classList.add("show"); // запуск анимации
-    } else {
-      card.classList.remove("show");
-    }
-  }
-</script>
+        if (token === "buzz") {
+          image.src = "buzz_ghibli_card.jpg"; // замените на свой путь
+          card.classList.add("show");
+        } else {
+          card.classList.remove("show");
+        }
+      }
+    </script>
   </body>
 </html>
