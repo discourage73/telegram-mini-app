@@ -11,7 +11,7 @@
         padding: 0;
         height: 100%;
         width: 100%;
-        font-family: sans-serif;
+        font-family: 'Georgia', serif;
         background: url('bg_melf_small_monkey.jpg') no-repeat center center fixed;
         background-size: cover;
         color: white;
@@ -26,6 +26,7 @@
         background-color: rgba(0, 0, 0, 0.4);
         padding: 12px 20px;
         border-radius: 12px;
+        font-weight: bold;
       }
 
       .main {
@@ -36,19 +37,20 @@
         align-items: center;
       }
 
+      /* КНОПКА В СТИЛЕ ГИБЛИ */
       .button {
         padding: 14px 30px;
         font-size: 1.1rem;
         font-weight: bold;
-        border: 3px solid #5b4e3b; /* тёплый коричневый */
+        border: 3px solid #5b4e3b;
         border-radius: 16px;
-        background: linear-gradient(to bottom, #e5d3a8, #d8b56f); /* бежево-золотой */
+        background: linear-gradient(to bottom, #e5d3a8, #d8b56f);
         color: #3a2d1a;
-        box-shadow: 0 4px 0 #5b4e3b, 0 6px 12px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 0 #5b4e3b, 0 6px 12px rgba(0, 0, 0, 0.2);
         cursor: pointer;
         transition: all 0.2s ease;
-        font-family: 'Georgia', serif;
         text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+        margin-top: 20px;
       }
 
       .button:hover {
@@ -58,11 +60,6 @@
       .button:active {
         transform: translateY(2px);
         box-shadow: 0 2px 0 #5b4e3b;
-      }
-
-
-      .button:hover {
-        background-color: #3569c4;
       }
 
       .token-list {
@@ -158,7 +155,7 @@
         const image = document.getElementById("tokenImage");
 
         if (token === "buzz") {
-          image.src = "buzz_ghibli_card.jpg"; // замените на свой путь
+          image.src = "buzz_ghibli_card.jpg"; // путь к картинке BUZZ
           card.classList.add("show");
         } else {
           card.classList.remove("show");
