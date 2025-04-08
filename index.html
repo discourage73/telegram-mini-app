@@ -37,16 +37,29 @@
       }
 
       .button {
-        padding: 14px 24px;
-        font-size: 1rem;
-        border: none;
-        border-radius: 12px;
-        background-color: #3f7de0;
-        color: white;
+        padding: 14px 30px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border: 3px solid #5b4e3b; /* тёплый коричневый */
+        border-radius: 16px;
+        background: linear-gradient(to bottom, #e5d3a8, #d8b56f); /* бежево-золотой */
+        color: #3a2d1a;
+        box-shadow: 0 4px 0 #5b4e3b, 0 6px 12px rgba(0,0,0,0.2);
         cursor: pointer;
-        transition: background-color 0.3s;
-        margin-top: 20px;
+        transition: all 0.2s ease;
+        font-family: 'Georgia', serif;
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
       }
+
+      .button:hover {
+        background: linear-gradient(to bottom, #f2e5c7, #e4c27a);
+      }
+
+      .button:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 0 #5b4e3b;
+      }
+
 
       .button:hover {
         background-color: #3569c4;
