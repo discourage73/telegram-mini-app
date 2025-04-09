@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Mini App — CryptoMonkey</title>
+  <title>Mini App — Ghibli Cloud Fade</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     html, body {
@@ -12,41 +12,81 @@
       height: 100%;
       width: 100%;
       font-family: 'Georgia', serif;
+      background: black;
+    }
+
+    /* Загрузочный экран */
+    #splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      overflow: hidden;
+      background-color: black;
+      transition: opacity 1.2s ease;
+      opacity: 1;
+    }
+
+    #splash.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .splash-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      animation: splashAnim 3s linear forwards;
+    }
+
+    @keyframes splashAnim {
+      0%   { background-image: url('bg1.jpg'); }
+      33%  { background-image: url('bg2.jpg'); }
+      66%  { background-image: url('bg3.jpg'); }
+      100% { background-image: url('bg3.jpg'); }
+    }
+
+    .splash-text {
+      color: white;
+      font-size: 2rem;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 12px 24px;
+      border-radius: 16px;
+      animation: fadeOut 0.8s ease 2.2s forwards;
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translateY(-10px); }
+    }
+
+    /* Основной интерфейс */
+    .main {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
       background: url('background_ghibli.png') no-repeat center center fixed;
       background-size: cover;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
-
-    header {
-      margin-top: 20px;
-      font-size: 1.4rem;
-      background-color: rgba(0, 0, 0, 0.4);
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-weight: bold;
-      color: white;
-    }
-
-    .main {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
     }
 
     .img-button {
       width: 260px;
       height: auto;
-      margin-top: 20px;
+      margin: 20px 0;
       cursor: pointer;
       border-radius: 16px;
       transition: transform 0.2s ease, box-shadow 0.3s ease;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-      display: none;
     }
 
     .img-button:hover {
@@ -61,16 +101,10 @@
       width: 44px;
       height: auto;
       cursor: pointer;
-      z-index: 999;
-      transition: transform 0.2s ease;
-    }
-
-    .lang-icon:hover {
-      transform: scale(1.1);
+      z-index: 1000;
     }
 
     .token-list {
-      margin-top: 20px;
       background-color: rgba(0, 0, 0, 0.5);
       padding: 15px;
       border-radius: 12px;
@@ -120,15 +154,20 @@
   </style>
 </head>
 <body>
-  <header id="greeting">Добро пожаловать!</header>
+  <!-- Загрузочный экран -->
+  <div id="splash">
+    <div class="splash-bg"></div>
+    <div class="splash-text">Добро пожаловать</div>
+  </div>
 
-  <!-- Переключатель языка -->
-  <img src="lang_ru.png" id="langSwitcher" alt="language" class="lang-icon" onclick="switchLang()" />
-
+  <!-- Основной интерфейс -->
   <div class="main">
-    <!-- Кнопки на двух языках -->
+    <!-- Переключатель языка -->
+    <img src="lang_ru.png" id="langSwitcher" alt="language" class="lang-icon" onclick="switchLang()" />
+
+    <!-- Кнопки -->
     <img
-      src="btn_token_list_ru_trimmed.png"
+      src="btn_token_list_ru_final.png"
       alt="Список токенов"
       class="img-button"
       id="tokenListButtonRu"
@@ -160,7 +199,7 @@
 
     const user = tg.initDataUnsafe?.user;
     if (user && user.first_name) {
-      document.getElementById("greeting").textContent =
+      document.getElementById("greeting")?.textContent =
         "Добро пожаловать, " + user.first_name + "!";
     }
 
@@ -211,6 +250,17 @@
         card.classList.remove("show");
       }
     }
+
+    // Плавное скрытие splash
+    setTimeout(() => {
+      const splash = document.getElementById("splash");
+      splash.classList.add("hide");
+
+      setTimeout(() => {
+        splash.style.display = "none";
+        document.querySelector(".main").style.display = "flex";
+      }, 1200); // после анимации затухания
+    }, 3000);
 
     applyLanguage();
   </script>
