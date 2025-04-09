@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mini App — Melf&</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Mini App — CryptoMonkey</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     html, body {
@@ -12,9 +12,8 @@
       height: 100%;
       width: 100%;
       font-family: 'Georgia', serif;
-      background: url('bg_melf_small_monkey.jpg') no-repeat center center fixed;
+      background: url('background_ghibli.png') no-repeat center center fixed;
       background-size: cover;
-      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -28,6 +27,7 @@
       padding: 12px 20px;
       border-radius: 12px;
       font-weight: bold;
+      color: white;
     }
 
     .main {
@@ -39,8 +39,8 @@
     }
 
     .img-button {
-      width: 300px;
-      max-width: 90%;
+      width: 260px;
+      height: auto;
       margin-top: 20px;
       cursor: pointer;
       border-radius: 16px;
@@ -54,19 +54,14 @@
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     }
 
-    .img-button:active {
-      transform: scale(0.98);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    }
-
     .lang-icon {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 48px;
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      width: 44px;
       height: auto;
       cursor: pointer;
-      z-index: 1000;
+      z-index: 999;
       transition: transform 0.2s ease;
     }
 
@@ -82,6 +77,7 @@
       display: none;
       flex-direction: column;
       gap: 8px;
+      color: white;
     }
 
     .token-item {
@@ -127,12 +123,12 @@
   <header id="greeting">Добро пожаловать!</header>
 
   <!-- Переключатель языка -->
-  <img src="lang_ru.png" id="langSwitcher" alt="language" class="lang-icon" onclick="switchLang()" />
+  <img src="lang_ru_clean.png" id="langSwitcher" alt="language" class="lang-icon" onclick="switchLang()" />
 
   <div class="main">
-    <!-- Кнопки Token List (в двух языках) -->
+    <!-- Кнопки на двух языках -->
     <img
-      src="btn_token_list_ru_final.png"
+      src="btn_token_list_ru_trimmed.png"
       alt="Список токенов"
       class="img-button"
       id="tokenListButtonRu"
@@ -178,11 +174,11 @@
       if (currentLang.startsWith("ru")) {
         ruBtn.style.display = "block";
         enBtn.style.display = "none";
-        langIcon.src = "lang_en.png";
+        langIcon.src = "lang_en_clean.png";
       } else {
         ruBtn.style.display = "none";
         enBtn.style.display = "block";
-        langIcon.src = "lang_ru.png";
+        langIcon.src = "lang_ru_clean.png";
       }
 
       localStorage.setItem("lang", currentLang);
