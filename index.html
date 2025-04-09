@@ -123,7 +123,7 @@
   <header id="greeting">Добро пожаловать!</header>
 
   <!-- Переключатель языка -->
-  <img src="lang_ru_clean.png" id="langSwitcher" alt="language" class="lang-icon" onclick="switchLang()" />
+  <img src="lang_ru.png" id="langSwitcher" alt="language" class="lang-icon" onclick="switchLang()" />
 
   <div class="main">
     <!-- Кнопки на двух языках -->
@@ -174,11 +174,11 @@
       if (currentLang.startsWith("ru")) {
         ruBtn.style.display = "block";
         enBtn.style.display = "none";
-        langIcon.src = "lang_en_clean.png";
+        langIcon.src = "lang_en.png";
       } else {
         ruBtn.style.display = "none";
         enBtn.style.display = "block";
-        langIcon.src = "lang_ru_clean.png";
+        langIcon.src = "lang_ru.png";
       }
 
       localStorage.setItem("lang", currentLang);
