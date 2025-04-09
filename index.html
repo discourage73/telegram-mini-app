@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Mini App — Ghibli Cloud Fade</title>
+  <title>Mini App — Ghibli</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     html, body {
@@ -161,11 +161,9 @@
   </div>
 
   <!-- Основной интерфейс -->
-  <div class="main">
-    <!-- Переключатель языка -->
-    <img src="lang_ru.png" id="langSwitcher" alt="language" class="lang-icon" onclick="switchLang()" />
+  <div class="main" id="main">
+    <img src="lang_ru_clean_final.png" id="langSwitcher" alt="language" class="lang-icon" onclick="switchLang()" />
 
-    <!-- Кнопки -->
     <img
       src="btn_token_list_ru_trimmed.png"
       alt="Список токенов"
@@ -174,20 +172,18 @@
       onclick="toggleTokens()"
     />
     <img
-      src="btn_token_list_en_final.png"
+      src="btn_token_list_en_clean_final.png"
       alt="Token List"
       class="img-button"
       id="tokenListButtonEn"
       onclick="toggleTokens()"
     />
 
-    <!-- Список токенов -->
     <div class="token-list" id="tokenList">
       <div class="token-item" onclick="showTokenCard('buzz')">Hive AI (BUZZ)</div>
       <div class="token-item" onclick="showTokenCard('soon')">Soon...</div>
     </div>
 
-    <!-- Карточка токена -->
     <div class="token-card" id="tokenCard">
       <img id="tokenImage" src="" alt="Token Info" />
     </div>
@@ -213,11 +209,11 @@
       if (currentLang.startsWith("ru")) {
         ruBtn.style.display = "block";
         enBtn.style.display = "none";
-        langIcon.src = "lang_en.png";
+        langIcon.src = "lang_en_clean_final.png";
       } else {
         ruBtn.style.display = "none";
         enBtn.style.display = "block";
-        langIcon.src = "lang_ru.png";
+        langIcon.src = "lang_ru_clean_final.png";
       }
 
       localStorage.setItem("lang", currentLang);
@@ -251,15 +247,19 @@
       }
     }
 
-    // Плавное скрытие splash
+    // Показываем интерфейс после загрузки
     setTimeout(() => {
       const splash = document.getElementById("splash");
-      splash.classList.add("hide");
+      const main = document.getElementById("main");
 
-      setTimeout(() => {
-        splash.style.display = "none";
-        document.querySelector(".main").style.display = "flex";
-      }, 1200); // после анимации затухания
+      if (splash && main) {
+        splash.classList.add("hide");
+
+        setTimeout(() => {
+          main.style.display = "flex";
+          splash.remove();
+        }, 1200);
+      }
     }, 3000);
 
     applyLanguage();
