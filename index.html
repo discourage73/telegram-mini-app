@@ -75,8 +75,10 @@
       align-items: center;
       justify-content: center;
       height: 100%;
-      background: url('background_ghibli.png') no-repeat center center fixed;
+      background-color: #111;
+      background-image: url('background_ghibli.png');
       background-size: cover;
+      background-position: center;
     }
 
     .img-button {
@@ -247,10 +249,12 @@
       }
     }
 
-    // Показываем интерфейс после загрузки
+    // Показ интерфейса после загрузки
     setTimeout(() => {
       const splash = document.getElementById("splash");
       const main = document.getElementById("main");
+
+      console.log("🟢 Переход от splash к main");
 
       if (splash && main) {
         splash.classList.add("hide");
@@ -259,6 +263,9 @@
           main.style.display = "flex";
           splash.remove();
         }, 1200);
+      } else {
+        // Резервный показ main
+        document.getElementById("main").style.display = "flex";
       }
     }, 3000);
 
