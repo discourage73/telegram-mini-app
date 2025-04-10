@@ -13,18 +13,42 @@
       width: 100%;
       font-family: 'Georgia', serif;
       background-color: #111;
-      background-image: url('bg1.jpg');
+    }
+
+    /* Загрузочный экран */
+    #splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: url('bg1.jpg') center center no-repeat;
       background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: white;
+      font-size: 2.2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: opacity 0.8s ease;
+    }
+
+    #splash.hide {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .main {
-      display: flex;
+      display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100%;
+      background: url('background_ghibli.png') no-repeat center center fixed;
+      background-size: cover;
     }
 
     .img-button {
@@ -102,6 +126,10 @@
   </style>
 </head>
 <body>
+  <!-- Загрузочный экран -->
+  <div id="splash">CryptoMonkey</div>
+
+  <!-- Основной интерфейс -->
   <div class="main" id="main">
     <img src="lang_ru.png" id="langSwitcher" alt="language" class="lang-icon" onclick="switchLang()" />
 
@@ -186,6 +214,17 @@
         card.classList.remove("show");
       }
     }
+
+    // Показываем интерфейс после загрузки
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("splash").classList.add("hide");
+        setTimeout(() => {
+          document.getElementById("main").style.display = "flex";
+          document.getElementById("splash")?.remove();
+        }, 800);
+      }, 2500);
+    });
 
     applyLanguage();
   </script>
