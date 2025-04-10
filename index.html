@@ -15,7 +15,6 @@
       background: black;
     }
 
-    /* Загрузочный экран */
     #splash {
       position: fixed;
       top: 0;
@@ -44,14 +43,6 @@
       height: 100%;
       background-size: cover;
       background-position: center;
-      animation: splashAnim 3s linear forwards;
-    }
-
-    @keyframes splashAnim {
-      0%   { background-image: url('bg1.jpg'); }
-      33%  { background-image: url('bg2.jpg'); }
-      66%  { background-image: url('bg3.jpg'); }
-      100% { background-image: url('bg3.jpg'); }
     }
 
     .splash-text {
@@ -68,17 +59,14 @@
       to { opacity: 0; transform: translateY(-10px); }
     }
 
-    /* Основной интерфейс */
     .main {
       display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100%;
-      background-color: #111;
-      background-image: url('background_ghibli.png');
+      background: url('background_ghibli.png') no-repeat center center fixed;
       background-size: cover;
-      background-position: center;
     }
 
     .img-button {
@@ -156,15 +144,13 @@
   </style>
 </head>
 <body>
-  <!-- Загрузочный экран -->
   <div id="splash">
-    <div class="splash-bg"></div>
+    <div class="splash-bg" id="splashBg"></div>
     <div class="splash-text">Добро пожаловать</div>
   </div>
 
-  <!-- Основной интерфейс -->
   <div class="main" id="main">
-    <img src="lang_ru_clean_final.png" id="langSwitcher" alt="language" class="lang-icon" onclick="switchLang()" />
+    <img src="lang_ru.png" id="langSwitcher" alt="language" class="lang-icon" onclick="switchLang()" />
 
     <img
       src="btn_token_list_ru_trimmed.png"
@@ -174,7 +160,7 @@
       onclick="toggleTokens()"
     />
     <img
-      src="btn_token_list_en_clean_final.png"
+      src="btn_token_list_en_final.png"
       alt="Token List"
       class="img-button"
       id="tokenListButtonEn"
@@ -211,11 +197,11 @@
       if (currentLang.startsWith("ru")) {
         ruBtn.style.display = "block";
         enBtn.style.display = "none";
-        langIcon.src = "lang_en_clean_final.png";
+        langIcon.src = "lang_en.png";
       } else {
         ruBtn.style.display = "none";
         enBtn.style.display = "block";
-        langIcon.src = "lang_ru_clean_final.png";
+        langIcon.src = "lang_ru.png";
       }
 
       localStorage.setItem("lang", currentLang);
@@ -249,24 +235,26 @@
       }
     }
 
-    // Показ интерфейса после загрузки
-    setTimeout(() => {
-      const splash = document.getElementById("splash");
-      const main = document.getElementById("main");
+    // Показываем splash картинки вручную
+    const splashBg = document.getElementById("splashBg");
+    const splashImages = ["bg1.jpg", "bg2.jpg", "bg3.jpg"];
+    let current = 0;
 
-      console.log("🟢 Переход от splash к main");
-
-      if (splash && main) {
-        splash.classList.add("hide");
-
-        setTimeout(() => {
-          main.style.display = "flex";
-          splash.remove();
-        }, 1200);
-      } else {
-        // Резервный показ main
-        document.getElementById("main").style.display = "flex";
+    const bgInterval = setInterval(() => {
+      splashBg.style.backgroundImage = `url('${splashImages[current]}')`;
+      current++;
+      if (current >= splashImages.length) {
+        clearInterval(bgInterval);
       }
+    }, 1000);
+
+    // Показ интерфейса
+    setTimeout(() => {
+      document.getElementById("splash").classList.add("hide");
+      setTimeout(() => {
+        document.getElementById("main").style.display = "flex";
+        document.getElementById("splash")?.remove();
+      }, 1200);
     }, 3000);
 
     applyLanguage();
