@@ -15,6 +15,7 @@
       background-color: #111;
     }
 
+    /* Загрузочный экран */
     #splash {
       position: fixed;
       top: 0;
@@ -22,8 +23,11 @@
       width: 100%;
       height: 100%;
       z-index: 9999;
-      background: url('bg1.jpg') center center no-repeat;
+      background: url('bg2.jpg') center center no-repeat;
       background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: opacity 0.8s ease;
     }
 
@@ -32,6 +36,19 @@
       pointer-events: none;
     }
 
+    /* Граната по центру + анимация вращения */
+    .grenade {
+      width: 100px;
+      height: auto;
+      animation: rotateGrenade 2s linear infinite;
+    }
+
+    @keyframes rotateGrenade {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Основной интерфейс */
     .main {
       display: none;
       flex-direction: column;
@@ -118,7 +135,9 @@
 </head>
 <body>
   <!-- Загрузочный экран -->
-  <div id="splash"></div>
+  <div id="splash">
+    <img src="grenade_loadout.png" alt="Grenade" class="grenade" />
+  </div>
 
   <!-- Основной интерфейс -->
   <div class="main" id="main">
@@ -206,18 +225,13 @@
       }
     }
 
-    // ⏱ Показ второй картинки и переход к основному интерфейсу
+    // Загрузка
     window.addEventListener("load", () => {
-      const splash = document.getElementById("splash");
       setTimeout(() => {
-        splash.style.backgroundImage = "url('bg3.jpg')";
-      }, 1500);
-
-      setTimeout(() => {
-        splash.classList.add("hide");
+        document.getElementById("splash").classList.add("hide");
         setTimeout(() => {
           document.getElementById("main").style.display = "flex";
-          splash.remove();
+          document.getElementById("splash")?.remove();
         }, 800);
       }, 3000);
     });
