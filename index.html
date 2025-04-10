@@ -15,7 +15,6 @@
       background-color: #111;
     }
 
-    /* Загрузочный экран */
     #splash {
       position: fixed;
       top: 0;
@@ -25,27 +24,12 @@
       z-index: 9999;
       background: url('bg1.jpg') center center no-repeat;
       background-size: cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       transition: opacity 0.8s ease;
     }
 
     #splash.hide {
       opacity: 0;
       pointer-events: none;
-    }
-
-    .crypto-title {
-      font-size: 2.2rem;
-      font-weight: 900;
-      color: #3d551c;
-      font-family: 'Georgia', serif;
-      background: #f5e3a1;
-      padding: 10px 24px;
-      border: 2px solid #3d551c;
-      border-radius: 14px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
     .main {
@@ -134,9 +118,7 @@
 </head>
 <body>
   <!-- Загрузочный экран -->
-  <div id="splash">
-    <div class="crypto-title">CryptoMonkey</div>
-  </div>
+  <div id="splash"></div>
 
   <!-- Основной интерфейс -->
   <div class="main" id="main">
@@ -224,15 +206,20 @@
       }
     }
 
-    // Показываем интерфейс после загрузки
+    // ⏱ Показ второй картинки и переход к основному интерфейсу
     window.addEventListener("load", () => {
+      const splash = document.getElementById("splash");
       setTimeout(() => {
-        document.getElementById("splash").classList.add("hide");
+        splash.style.backgroundImage = "url('bg2.jpg')";
+      }, 1500);
+
+      setTimeout(() => {
+        splash.classList.add("hide");
         setTimeout(() => {
           document.getElementById("main").style.display = "flex";
-          document.getElementById("splash")?.remove();
+          splash.remove();
         }, 800);
-      }, 2500);
+      }, 3000);
     });
 
     applyLanguage();
