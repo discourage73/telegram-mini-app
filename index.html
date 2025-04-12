@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>CryptoMonkey</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>CryptoMonkey</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
     html, body {
       margin: 0;
       padding: 0;
@@ -131,44 +132,37 @@
       display: block;
       border-radius: 16px;
     }
-  </style>
+  
+.token-button-small {
+  position: fixed;
+  top: 60px;
+  right: 16px;
+  width: 86px;
+  height: auto;
+  z-index: 999;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
-  <!-- Загрузочный экран -->
-  <div id="splash">
-    <img src="grenade_loadout.png" alt="Grenade" class="grenade" />
-  </div>
-
-  <!-- Основной интерфейс -->
-  <div class="main" id="main">
-    <img src="lang_ru.png" id="langSwitcher" alt="language" class="lang-icon" onclick="switchLang()" />
-
-    <img
-      src="btn_token_list_ru.svg"
-      alt="Список токенов"
-      class="img-button"
-      id="tokenListButtonRu"
-      onclick="toggleTokens()"
-    />
-    <img
-      src="btn_token_list_en.svg"
-      alt="Token List"
-      class="img-button"
-      id="tokenListButtonEn"
-      onclick="toggleTokens()"
-    />
-
-    <div class="token-list" id="tokenList">
-      <div class="token-item" onclick="showTokenCard('buzz')">Hive AI (BUZZ)</div>
-      <div class="token-item" onclick="showTokenCard('soon')">Soon...</div>
-    </div>
-
-    <div class="token-card" id="tokenCard">
-      <img id="tokenImage" src="" alt="Token Info" />
-    </div>
-  </div>
-
-  <script>
+<!-- Загрузочный экран -->
+<div id="splash">
+<img alt="Grenade" class="grenade" src="grenade_loadout.png"/>
+</div>
+<!-- Основной интерфейс -->
+<div class="main" id="main">
+<img alt="language" class="lang-icon" id="langSwitcher" onclick="switchLang()" src="lang_ru.png"/>
+<img alt="Список токенов" class="token-button-small" id="tokenListButtonRu" onclick="toggleTokens()" src="btn_token_list_ru.svg"/>
+<img alt="Token List" class="token-button-small" id="tokenListButtonEn" onclick="toggleTokens()" src="btn_token_list_en.svg"/>
+<div class="token-list" id="tokenList">
+<div class="token-item" onclick="showTokenCard('buzz')">Hive AI (BUZZ)</div>
+<div class="token-item" onclick="showTokenCard('soon')">Soon...</div>
+</div>
+<div class="token-card" id="tokenCard">
+<img alt="Token Info" id="tokenImage" src=""/>
+</div>
+</div>
+<script>
     const tg = window.Telegram.WebApp;
     tg.expand();
 
